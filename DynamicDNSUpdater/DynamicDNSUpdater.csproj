@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk;Microsoft.NET.Sdk.Publish">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <Configurations>Debug;Release;DockerRelease;DockerDebug</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DockerRelease|AnyCPU'">
+    <DefineConstants>TRACE;DOCKER</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DockerDebug|AnyCPU'">
+    <DefineConstants>TRACE;DOCKER</DefineConstants>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+  </ItemGroup>
+</Project>

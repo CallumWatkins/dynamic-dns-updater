@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicDNSUpdater", "DynamicDNSUpdater\DynamicDNSUpdater.csproj", "{311FA164-878C-400B-90A6-D9B43AF3820B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DockerDebug|Any CPU = DockerDebug|Any CPU
+		DockerRelease|Any CPU = DockerRelease|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{311FA164-878C-400B-90A6-D9B43AF3820B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{311FA164-878C-400B-90A6-D9B43AF3820B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{311FA164-878C-400B-90A6-D9B43AF3820B}.DockerDebug|Any CPU.ActiveCfg = DockerDebug|Any CPU
+		{311FA164-878C-400B-90A6-D9B43AF3820B}.DockerDebug|Any CPU.Build.0 = DockerDebug|Any CPU
+		{311FA164-878C-400B-90A6-D9B43AF3820B}.DockerRelease|Any CPU.ActiveCfg = DockerRelease|Any CPU
+		{311FA164-878C-400B-90A6-D9B43AF3820B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EDDA730-CC88-4C58-B81E-E59CB2B32C83}
+	EndGlobalSection
+EndGlobal

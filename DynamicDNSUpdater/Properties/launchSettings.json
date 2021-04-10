@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DynamicDNSUpdater": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
