@@ -65,6 +65,13 @@ namespace DynamicDNSUpdater
                     Environment.Exit(1);
                     return;
                 }
+                else if (!config.IsValid(out string? configError))
+                {
+                    Console.WriteLine($"Failed - {configError}");
+
+                    Environment.Exit(2);
+                    return;
+                }
 
                 Console.WriteLine("Done");
 

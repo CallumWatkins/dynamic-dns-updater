@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DynamicDNSUpdater
 {
@@ -20,7 +21,7 @@ namespace DynamicDNSUpdater
             public string[] Hosts { get; set; }
         }
 
-        public bool IsValid(out string? error)
+        public bool IsValid([NotNullWhen(false)] out string? error)
         {
             if (!Enum.IsDefined(typeof(DDNSProvider), Provider))
             {
@@ -31,6 +32,12 @@ namespace DynamicDNSUpdater
             if (Domains == null || Domains.Length == 0)
             {
                 error = "Domains list is missing or empty";
+                return false;
+            }
+
+            if (UpdateFrequencySeconds <= 0)
+            {
+                error = "UpdateFrequencySeconds must be greater than zero";
                 return false;
             }
 
