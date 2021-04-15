@@ -99,35 +99,36 @@ namespace DynamicDNSUpdater
                         if (!ipFinderResponse.IPFound)
                         {
                             Console.WriteLine($"Failed - {ipFinderResponse.ErrorMessage}");
+                            return;
                         }
-                        else
-                        {
-                            Console.WriteLine($"Done [{ipFinderResponse.IPAddress}]");
+                        Console.WriteLine($"Done [{ipFinderResponse.IPAddress}]");
 
-                            if (!ipFinderResponse.IPAddress.Equals(state.CurrentIPAddress))
-                            {
-                                if (state.CurrentIPAddress == null) Console.WriteLine("Performing first time sync.");
-                                else Console.WriteLine("IP address has changed. Updating dynamic DNS...");
-                                bool success = await updater.UpdateAsync(ipFinderResponse.IPAddress);
-                                if (success)
-                                {
-                                    if (state.CurrentIPAddress != null)
-                                    {
-                                        IPAddress[] arr = new IPAddress[state.PreviousIPAddresses.Length + 1];
-                                        Array.Copy(state.PreviousIPAddresses, 0, arr, 1, state.PreviousIPAddresses.Length);
-                                        arr[0] = state.CurrentIPAddress;
-                                        state.PreviousIPAddresses = arr;
-                                    }
-                                    state.CurrentIPAddress = ipFinderResponse.IPAddress;
-                                    state.LastUpdatedTimestamp = DateTime.Now;
-                                    await _stateReaderWriter.WriteAsync(state);
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("IP address has not changed.");
-                            }
+                        if (ipFinderResponse.IPAddress.Equals(state.CurrentIPAddress))
+                        {
+                            Console.WriteLine("IP address has not changed.");
+                            return;
                         }
+
+                        if (state.CurrentIPAddress == null) Console.WriteLine("Performing first time sync.");
+                        else Console.WriteLine("IP address has changed. Updating dynamic DNS...");
+
+                        bool success = await updater.UpdateAsync(ipFinderResponse.IPAddress);
+                        if (!success)
+                        {
+                            // TODO
+                            return;
+                        }
+
+                        if (state.CurrentIPAddress != null)
+                        {
+                            IPAddress[] arr = new IPAddress[state.PreviousIPAddresses.Length + 1];
+                            Array.Copy(state.PreviousIPAddresses, 0, arr, 1, state.PreviousIPAddresses.Length);
+                            arr[0] = state.CurrentIPAddress;
+                            state.PreviousIPAddresses = arr;
+                        }
+                        state.CurrentIPAddress = ipFinderResponse.IPAddress;
+                        state.LastUpdatedTimestamp = DateTime.Now;
+                        await _stateReaderWriter.WriteAsync(state);
                     }
                     finally
                     {
