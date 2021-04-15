@@ -112,10 +112,10 @@ namespace DynamicDNSUpdater
                         if (state.CurrentIPAddress == null) Console.WriteLine("Performing first time sync.");
                         else Console.WriteLine("IP address has changed. Updating dynamic DNS...");
 
-                        bool success = await updater.UpdateAsync(ipFinderResponse.IPAddress);
-                        if (!success)
+                        bool updateSuccess = await updater.UpdateAsync(ipFinderResponse.IPAddress);
+                        if (!updateSuccess)
                         {
-                            // TODO
+                            Console.WriteLine("One or more hosts could not be updated; see above.");
                             return;
                         }
 
@@ -129,6 +129,7 @@ namespace DynamicDNSUpdater
                         state.CurrentIPAddress = ipFinderResponse.IPAddress;
                         state.LastUpdatedTimestamp = DateTime.Now;
                         await _stateReaderWriter.WriteAsync(state);
+                        Console.WriteLine("Sync successful.");
                     }
                     finally
                     {
