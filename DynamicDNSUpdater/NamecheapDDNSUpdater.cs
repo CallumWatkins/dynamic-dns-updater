@@ -24,8 +24,16 @@ namespace DynamicDNSUpdater
                 {
                     Console.Write($" - {host}.{domain}... ");
                     string url = $"https://dynamicdns.park-your-domain.com/update?host={host}&domain={domain}&password={Password}";
-                    HttpResponseMessage response = await HttpClient.GetAsync(url);
-                    success &= await ValidateResponse(response, newIPAddress);
+                    try
+                    {
+                        HttpResponseMessage response = await HttpClient.GetAsync(url);
+                        success &= await ValidateResponse(response, newIPAddress);
+                    }
+                    catch (HttpRequestException e)
+                    {
+                        Console.WriteLine($"Failed - Request failed: '{e.Message}'");
+                        success = false;
+                    }
                 }
             }
 
