@@ -95,20 +95,20 @@ namespace DynamicDNSUpdater
                     {
                         Console.WriteLine();
                         Console.Write("Getting current public IP address... ");
-                        IPAddress? newIP = await IPFinder.FindAsync();
-                        if (newIP == null)
+                        IPFinder.IPFinderResponse ipFinderResponse = await IPFinder.FindAsync();
+                        if (!ipFinderResponse.IPFound)
                         {
-                            Console.WriteLine("Failed");
+                            Console.WriteLine($"Failed - {ipFinderResponse.ErrorMessage}");
                         }
                         else
                         {
-                            Console.WriteLine($"Done [{newIP}]");
+                            Console.WriteLine($"Done [{ipFinderResponse.IPAddress}]");
 
-                            if (!newIP.Equals(state.CurrentIPAddress))
+                            if (!ipFinderResponse.IPAddress.Equals(state.CurrentIPAddress))
                             {
                                 if (state.CurrentIPAddress == null) Console.WriteLine("Performing first time sync.");
                                 else Console.WriteLine("IP address has changed. Updating dynamic DNS...");
-                                bool success = await updater.UpdateAsync(newIP);
+                                bool success = await updater.UpdateAsync(ipFinderResponse.IPAddress);
                                 if (success)
                                 {
                                     if (state.CurrentIPAddress != null)
@@ -118,7 +118,7 @@ namespace DynamicDNSUpdater
                                         arr[0] = state.CurrentIPAddress;
                                         state.PreviousIPAddresses = arr;
                                     }
-                                    state.CurrentIPAddress = newIP;
+                                    state.CurrentIPAddress = ipFinderResponse.IPAddress;
                                     state.LastUpdatedTimestamp = DateTime.Now;
                                     await _stateReaderWriter.WriteAsync(state);
                                 }
