@@ -3,13 +3,14 @@ A simple DDNS updater.
 
 ## Supported Providers
  - Namecheap
+ - Cloudflare
 
 ## Configuration
 | Option | Description | Required | Default Value |
 | --- | --- | --- | --- |
 | `Provider` | The name of the DDNS provider. | Yes | - |
-| `Password` | The password used to authenticate to the provider. | Yes | - |
-| `Domains` | An array of domains along with the hosts to be updated. | Yes | - |
+| `Password` | The password used to authenticate to the provider.<br />- Namecheap: The [Dynamic DNS Password](https://www.namecheap.com/support/knowledgebase/article.aspx/595/11/how-do-i-enable-dynamic-dns-for-a-domain/) for the domain.<br />- Cloudflare: An [API Token](https://dash.cloudflare.com/profile/api-tokens) with `DNS:Edit` permissions in all relevant zones. | Yes | - |
+| `Domains` | An array of domains along with the hosts to be updated.<br />- Namecheap: `Domain` is the domain name and `Hosts` is an array of hosts.<br />- Cloudflare: `Domain` is the Zone ID and `Hosts` is an array of Record IDs. | Yes | - |
 | `UpdateFrequencySeconds` | The number of seconds between each check of the current IP address. | No | 900 (15 minutes) |
 
 ### Example `DDNS_config.json` configuration file (created on first launch):
