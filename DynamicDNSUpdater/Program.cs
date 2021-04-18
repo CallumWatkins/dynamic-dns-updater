@@ -78,6 +78,7 @@ namespace DynamicDNSUpdater
                 DDNSUpdater updater = config.Provider switch
                 {
                     Config.DDNSProvider.Namecheap => new NamecheapDDNSUpdater(config.Domains, config.Password),
+                    Config.DDNSProvider.Cloudflare => new CloudflareDDNSUpdater(config.Domains, config.Password),
                     _ => throw new Exception($"Unrecognised provider."),
                 };
                 IPFinder IPFinder = new();

@@ -12,7 +12,8 @@ namespace DynamicDNSUpdater
 
         public enum DDNSProvider
         {
-            Namecheap
+            Namecheap,
+            Cloudflare
         }
 
         public class DomainConfig
