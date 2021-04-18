@@ -101,7 +101,7 @@ namespace DynamicDNSUpdater
                             Console.WriteLine($"Failed - {ipFinderResponse.ErrorMessage}");
                             return;
                         }
-                        Console.WriteLine($"Done [{ipFinderResponse.IPAddress}]");
+                        Console.WriteLine($"Done - {ipFinderResponse.IPAddress}");
 
                         if (ipFinderResponse.IPAddress.Equals(state.CurrentIPAddress))
                         {
