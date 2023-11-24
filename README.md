@@ -29,7 +29,7 @@ A simple DDNS updater.
 ```
 
 ## Docker Usage
-[callumwatkins/dynamicdnsupdater](https://hub.docker.com/r/callumwatkins/dynamicdnsupdater)
+[callumwatkins/dynamicdnsupdater](https://hub.docker.com/r/callumwatkins/dynamicdnsupdater) (supported architectures: `amd64`, `arm32v7`, `arm64v8`)
 
 Configuration and state stored in `/data`.
 
@@ -39,7 +39,7 @@ Configuration and state stored in `/data`.
 version: "2.1"
 services:
   ddns:
-    image: callumwatkins/dynamicdnsupdater:arm32
+    image: callumwatkins/dynamicdnsupdater:arm32v7-latest
     container_name: ddns
     network_mode: host
     volumes:
