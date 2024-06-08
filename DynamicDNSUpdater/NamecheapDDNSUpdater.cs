@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Linq;
 
 namespace DynamicDNSUpdater
 {
@@ -68,12 +69,7 @@ namespace DynamicDNSUpdater
                     }
                     else
                     {
-                        Console.Write("Failed - '");
-                        foreach (XmlNode error in errors)
-                        {
-                            Console.Write($"{error.InnerText} ");
-                        }
-                        Console.WriteLine("'");
+                        Console.WriteLine($"Failed - '{string.Join(" ", errors.Cast<XmlNode>().Select(error => error.InnerText))}'");
                     }
                     return false;
                 }
