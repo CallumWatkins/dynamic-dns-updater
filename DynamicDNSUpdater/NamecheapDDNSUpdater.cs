@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Linq;
 
 namespace DynamicDNSUpdater
 {
@@ -54,7 +56,7 @@ namespace DynamicDNSUpdater
             XmlDocument doc = new();
             try
             {
-                doc.Load(await response.Content.ReadAsStreamAsync());
+                doc.Load(new StreamReader(await response.Content.ReadAsStreamAsync()));
                 XmlNode root = doc.DocumentElement ?? throw new XmlException("Missing root node.");
 
                 XmlNode? responseErrorsNode = root.SelectSingleNode("errors");
@@ -67,12 +69,7 @@ namespace DynamicDNSUpdater
                     }
                     else
                     {
-                        Console.Write("Failed - '");
-                        foreach (XmlNode error in errors)
-                        {
-                            Console.Write($"{error.InnerText} ");
-                        }
-                        Console.WriteLine("'");
+                        Console.WriteLine($"Failed - '{string.Join(" ", errors.Cast<XmlNode>().Select(error => error.InnerText))}'");
                     }
                     return false;
                 }
@@ -93,9 +90,9 @@ namespace DynamicDNSUpdater
                 Console.WriteLine("Done");
                 return true;
             }
-            catch (XmlException)
+            catch (XmlException e)
             {
-                Console.WriteLine("Failed - Response contained invalid or unexpected XML");
+                Console.WriteLine($"Failed - Response contained invalid or unexpected XML: {e.Message}");
                 return false;
             }
         }
