@@ -93,9 +93,9 @@ namespace DynamicDNSUpdater
                 Console.WriteLine("Done");
                 return true;
             }
-            catch (XmlException)
+            catch (XmlException e)
             {
-                Console.WriteLine("Failed - Response contained invalid or unexpected XML");
+                Console.WriteLine($"Failed - Response contained invalid or unexpected XML: {e.Message}");
                 return false;
             }
         }
