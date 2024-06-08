@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <Configurations>Debug;Release;DockerRelease;DockerDebug</Configurations>
+    <Version>1.0.1</Version>
+    <Authors>Callum Watkins</Authors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DockerRelease|AnyCPU'">
     <DefineConstants>TRACE;DOCKER</DefineConstants>

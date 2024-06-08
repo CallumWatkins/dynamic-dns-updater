@@ -1,7 +1,7 @@
 $dockerHubUsername = "callumwatkins"
 $imageName = "dynamicdnsupdater"
 $architectures = @("amd64", "arm32v7", "arm64v8")
-$versionTag = "1.0.0"
+$versionTag = "1.0.1"
 $includeLatestTag = $true
 
 $tags = @($versionTag)
