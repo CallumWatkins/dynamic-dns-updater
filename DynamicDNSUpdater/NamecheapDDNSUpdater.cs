@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
@@ -54,7 +55,7 @@ namespace DynamicDNSUpdater
             XmlDocument doc = new();
             try
             {
-                doc.Load(await response.Content.ReadAsStreamAsync());
+                doc.Load(new StreamReader(await response.Content.ReadAsStreamAsync()));
                 XmlNode root = doc.DocumentElement ?? throw new XmlException("Missing root node.");
 
                 XmlNode? responseErrorsNode = root.SelectSingleNode("errors");
